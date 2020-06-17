@@ -40,7 +40,8 @@ class SegmentCollector
 
         $this->segments = [];
         $tracer = $this->tracer()
-            ->setTraceHeader(isset($_SERVER['HTTP_X_AMZN_TRACE_ID']) ? $_SERVER['HTTP_X_AMZN_TRACE_ID'] . ';Sampled=1' : null)
+            ->setTraceHeader($_SERVER['HTTP_X_AMZN_TRACE_ID'] ?? null)
+            ->setSampled(true)
             ->setName(config('app.name') . ' HTTP')
             ->setClientIpAddress($request->getClientIp())
             ->addAnnotation('Framework', 'Laravel ' . app()->version())
